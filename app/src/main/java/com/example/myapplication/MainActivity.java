@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         int r = operations.insert(model);
         if(r>0){
             Toast.makeText(this, "Guardado correctamente", Toast.LENGTH_LONG).show();
-            //uno.setText(String.valueOf(r));
         }else{
             Toast.makeText(this, "No se guardó correctamente", Toast.LENGTH_LONG).show();
         }
