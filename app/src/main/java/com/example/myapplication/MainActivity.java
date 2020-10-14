@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         list = operations.list();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, list);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, list);
         lv_main_notas.setAdapter(adapter);
 
         lv_main_notas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
