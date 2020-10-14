@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.adapters.NotaAdapter;
 import com.example.myapplication.models.NotaModel;
 import com.example.myapplication.operations.NotaOperations;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView lv_main_notas;
     private Button btn_main_nuevo;
     private ArrayList<String> list;
-    private ArrayAdapter<String> adapter;
+    private NotaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         lv_main_notas = findViewById(R.id.lv_main_notas);
         btn_main_nuevo = findViewById(R.id.btn_main_nuevo);
         operations = new NotaOperations(this);
+
 
         btn_main_nuevo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         list = operations.list();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, list);
+        adapter = new NotaAdapter(this, list);
         lv_main_notas.setAdapter(adapter);
 
         lv_main_notas.setOnItemClickListener(new AdapterView.OnItemClickListener() {

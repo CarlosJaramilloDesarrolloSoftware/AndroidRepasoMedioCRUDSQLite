@@ -63,7 +63,7 @@ public class NotaOperations {
                 titulo = cursor.getString(cursor.getColumnIndex("titulo"));
                 contenido = cursor.getString(cursor.getColumnIndex("contenido"));
 
-                consolidado = String.valueOf(id) +  " - " + titulo;
+                consolidado = String.valueOf(id) +  " - " + titulo + "\n" + contenido;
                 list.add(consolidado);
             }while (cursor.moveToNext());
         }
