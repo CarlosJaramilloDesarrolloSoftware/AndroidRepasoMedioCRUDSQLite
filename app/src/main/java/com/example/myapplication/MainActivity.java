@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,16 +20,17 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private NotaOperations operations;
-    private TextView uno;
-    private ArrayList<String> list;
+    private ListView lv_main_notas;
     private Button btn_main_nuevo;
+    private ArrayList<String> list;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        uno = findViewById(R.id.uno);
+        lv_main_notas = findViewById(R.id.lv_main_notas);
         btn_main_nuevo = findViewById(R.id.btn_main_nuevo);
         operations = new NotaOperations(this);
 
@@ -38,13 +42,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String consolidadoMostrar = "";
+
         list = operations.list();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, list);
+        lv_main_notas.setAdapter(adapter);
 
-        for (int i = 0; i < list.size(); i++){
-            consolidadoMostrar += list.get(i) + "\n ------------------ \n\n";
-        }
+        lv_main_notas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), list.get(i), Toast.LENGTH_LONG).show();
+            }
+        });
 
-        uno.setText(consolidadoMostrar);
+
     }
 }
