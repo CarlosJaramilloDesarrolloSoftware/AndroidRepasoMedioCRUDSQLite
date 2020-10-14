@@ -2,7 +2,10 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-        import android.os.Bundle;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,10 +16,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private NotaModel model;
     private NotaOperations operations;
     private TextView uno;
     private ArrayList<String> list;
+    private Button btn_main_nuevo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +27,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         uno = findViewById(R.id.uno);
-        String titulo = "Nuevo Titulo de la nota";
-        String contenido = "Contenido nuevo de la nota que quiero guardar en la base de datos";
+        btn_main_nuevo = findViewById(R.id.btn_main_nuevo);
         operations = new NotaOperations(this);
 
-        model = new NotaModel(titulo, contenido);
-        int r = operations.insert(model);
-        if(r>0){
-            Toast.makeText(this, "Guardado correctamente", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(this, "No se guardó correctamente", Toast.LENGTH_LONG).show();
-        }
+        btn_main_nuevo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent nuevo = new Intent(MainActivity.this, RegistroActivity.class);
+                startActivity(nuevo);
+            }
+        });
 
         String consolidadoMostrar = "";
         list = operations.list();
@@ -44,6 +46,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         uno.setText(consolidadoMostrar);
-
     }
 }

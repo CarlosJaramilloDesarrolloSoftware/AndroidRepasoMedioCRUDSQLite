@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class NotaOperations {
     private String DBNAME = "appnotasmyapp.db";
-    private int VERSION = 2;
+    private int VERSION = 3;
     public final Context context;
     private SQLiteDatabase database;
     private SQLHelper helper;
