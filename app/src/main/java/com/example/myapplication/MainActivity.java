@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private NotaOperations operations;
     private ListView lv_main_notas;
     private Button btn_main_nuevo;
-    private ArrayList<String> list;
+    private ArrayList<NotaModel> list;
     private NotaAdapter adapter;
+    private NotaModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         lv_main_notas = findViewById(R.id.lv_main_notas);
         btn_main_nuevo = findViewById(R.id.btn_main_nuevo);
         operations = new NotaOperations(this);
-
 
         btn_main_nuevo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
         lv_main_notas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), list.get(i), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), String.valueOf(list.get(i).get_id()), Toast.LENGTH_LONG).show();
+                model = list.get(i);
+                Intent detalle = new Intent(MainActivity.this, DetalleActivity.class);
+                detalle.putExtra("model", model);
+                startActivity(detalle);
             }
         });
 

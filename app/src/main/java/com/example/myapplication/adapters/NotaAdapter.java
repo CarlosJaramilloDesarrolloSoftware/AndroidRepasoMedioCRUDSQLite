@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,16 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.myapplication.R;
+import com.example.myapplication.models.NotaModel;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class NotaAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<String> list;
+    private ArrayList<NotaModel> list;
 
-    public NotaAdapter(Context context, ArrayList<String> list) {
+    public NotaAdapter(Context context, ArrayList<NotaModel> list) {
         this.context = context;
         this.list = list;
     }
@@ -34,7 +36,7 @@ public class NotaAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int i) {
+    public NotaModel getItem(int i) {
         return list.get(i);
     }
 
@@ -51,19 +53,38 @@ public class NotaAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.nota_item, viewGroup, false);
         }
 
-        TextView item_titulo, item_contenido;
+        TextView item_titulo, item_contenido, item_fecha;
         ImageView item_imagen;
+        String titulo, contenido;
 
         item_imagen = view.findViewById(R.id.item_imagen);
         item_titulo = view.findViewById(R.id.item_titulo);
+        item_contenido = view.findViewById(R.id.item_contenido);
+        item_fecha = view.findViewById(R.id.item_fecha);
 
-        item_titulo.setText(list.get(i));
+        //Forma 1
+        titulo = list.get(i).getTitulo().trim();
+        Log.i("INFONA", titulo);
+        if(titulo.equals("")){
+            titulo = "(Sin título)";
+        }
+        item_titulo.setText(titulo);
+
+        //Forma 2
+        item_titulo.setText(list.get(i).getTitulo());
+
+        item_contenido.setText(list.get(i).getContenido());
+
+        item_fecha.setText("10/10/20");
+
+
 
         //Forma dinámica
         // Iconos
-        String[] iconos = {"ic_accessibility_new_white_18dp", "ic_account_circle_white_18dp", "ic_android_white_18dp", "ic_pregnant_woman_white_18dp"};
+        String[] iconos = { "ic_accessibility_new_white_18dp", "ic_account_circle_white_18dp", "ic_android_white_18dp", "ic_pregnant_woman_white_18dp"};
         Random r =new Random();
         int randomNumber = r.nextInt(iconos.length);
+
         int icono = view.getResources().getIdentifier("com.example.myapplication:drawable/" + iconos[randomNumber], null, null);
         item_imagen.setImageResource(icono);
 
@@ -79,12 +100,10 @@ public class NotaAdapter extends BaseAdapter {
         //item_imagen.setImageDrawable(img);
 
         //Icono 2
-        //item_imagen.setImageResource(R.drawable.ic_android_white_18dp);
+        //item_imagen.setImageResource(R.drawable.ic_pregnant_woman_white_18dp);
 
         //Color
         //view.setBackgroundColor(view.getResources().getColor(android.R.color.holo_blue_light));
-
-
 
         return view;
     }

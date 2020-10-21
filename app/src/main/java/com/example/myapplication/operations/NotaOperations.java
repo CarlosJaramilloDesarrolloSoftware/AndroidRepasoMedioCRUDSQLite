@@ -17,7 +17,7 @@ public class NotaOperations {
     private SQLiteDatabase database;
     private SQLHelper helper;
     private NotaModel model;
-    private ArrayList<String> list;
+    private ArrayList<NotaModel> list;
 
 
     public NotaOperations(Context context) {
@@ -49,22 +49,22 @@ public class NotaOperations {
         return (int)id;
     }
 
-    public ArrayList<String> list(){
+    public ArrayList<NotaModel> list(){
         list = new ArrayList<>();
         openRead();
 
         Cursor cursor = database.query("nota", null, null, null, null, null, null);
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
-            String titulo, contenido, consolidado;
+            String titulo, contenido;
             int id;
             do{
                 id = cursor.getInt(cursor.getColumnIndex("id"));
                 titulo = cursor.getString(cursor.getColumnIndex("titulo"));
                 contenido = cursor.getString(cursor.getColumnIndex("contenido"));
 
-                consolidado = String.valueOf(id) +  " - " + titulo + "\n" + contenido;
-                list.add(consolidado);
+                model = new NotaModel(id, titulo, contenido);
+                list.add(model);
             }while (cursor.moveToNext());
         }
         close();

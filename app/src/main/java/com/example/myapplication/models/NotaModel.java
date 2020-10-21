@@ -1,6 +1,8 @@
 package com.example.myapplication.models;
 
-public class NotaModel {
+import java.io.Serializable;
+
+public class NotaModel implements Serializable {
     private int _id;
     private String titulo;
     private String contenido;
@@ -26,7 +28,7 @@ public class NotaModel {
     }
 
     public int get_id() {
-        return _id;
+        return this._id;
     }
 
     public void set_id(int _id) {
